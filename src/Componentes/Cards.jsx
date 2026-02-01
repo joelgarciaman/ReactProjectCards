@@ -10,19 +10,16 @@ export function Cartas() {
   const [ModalAbierto, setAbierto] = useState(false);
 
 useEffect(() => {
-  // Usamos la URL real directamente para que funcione en Vercel
   fetch('https://json-server-historias.vercel.app/historias') 
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Error al cargar la API');
       return response.json();
     })
     .then(data => { 
       setData(data);
     })
     .catch(error => {
-      console.error('Error fetching data:', error);
+      console.error('Error en el fetch:', error);
     });
 }, [setData]);
 
