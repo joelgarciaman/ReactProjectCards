@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "./GlobalContext";
 import { Button } from "@nextui-org/react";
 import { Plus } from "lucide-react";
-import ModalFormAdd from "./ModalAdd"; 
+import ModalFormAdd from "./ModalAdd";
 import { Carta } from "./Card";
 
 export function Cartas() {
@@ -25,32 +25,35 @@ export function Cartas() {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-4 ">
-        {data && data.length > 0 ? (
-          data.map((item) => (
-            <div key={item.id} className="mb-4 mr-5">
-              <Carta
-                id={item.id}
-                titulo={item.titulo}
-                fecha={item.fecha}
-                experiencia={item.experiencia}
-                imagen={item.imagen}
-              />
-            </div>
-          ))
-        ) : (
-          <p>No data available</p>
-        )}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {data && data.length > 0 ? (
+            data.map((item) => (
+              <div key={item.id} className="w-full flex justify-center">
+                <Carta
+                  id={item.id}
+                  titulo={item.titulo}
+                  fecha={item.fecha}
+                  experiencia={item.experiencia}
+                  imagen={item.imagen}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No data available</p>
+          )}
+        </div>
       </div>
-      <div className="bg-success w-[60px] h-[60px] rounded-full fixed bottom-5 right-5 flex items-center justify-center mt-2">
-        <ModalFormAdd isOpen={ModalAbierto} onClose={cerrarModal} /> 
+      <div className="fixed bottom-8 right-8 z-50">
+        <ModalFormAdd isOpen={ModalAbierto} onClose={cerrarModal} />
         <Button
-          className="text-white text-3xl"
-          color="success"
-          size="sm"
+          className="text-white bg-gradient-to-tr from-cyan-500 to-blue-500 shadow-lg shadow-cyan-500/50 hover:shadow-cyan-500/80 transition-shadow duration-300"
+          isIconOnly
+          radius="full"
+          size="lg"
           onPress={abrirModal}
         >
-          <Plus />
+          <Plus size={28} />
         </Button>
       </div>
     </div>
