@@ -9,16 +9,22 @@ export function Cartas() {
   const { data, setData } = useContext(DataContext);
   const [ModalAbierto, setAbierto] = useState(false);
 
-  useEffect(() => {
-    fetch('https://json-server-historias.vercel.app/historias')
-      .then(response => response.json())
-      .then(data => {
-        setData(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, [setData]);
+ useEffect(() => {
+  // Cambiamos la URL completa por el prefijo '/api' que definimos en vite.config.js
+  fetch('/api/historias') 
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => { 
+      setData(data);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+}, [setData]); // setData es estable, así que esto está bien.
 
   const abrirModal = () => setAbierto(true);
   const cerrarModal = () => setAbierto(false);
